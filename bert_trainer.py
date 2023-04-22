@@ -9,7 +9,7 @@ from custom_bert.module import file_reader, custom_dataset
 from custom_bert.bert import bert
 
 tokenizer = AutoTokenizer.from_pretrained('cl-tohoku/bert-base-japanese-whole-word-masking')
-modBERT = bert.ModifiedBERT.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking", num_labels=2)
+modBERT = bert.ConcatedBERT.from_pretrained("cl-tohoku/bert-base-japanese-whole-word-masking", num_labels=2)
 
 def main(args):
     dataset = args.dataset
@@ -17,8 +17,8 @@ def main(args):
     size = args.docsize
     
     target_dir = f'/data/realive333/kakuyomu-dataset/tsv/{dataset}/{target}/'
-    save_dir = f'./saves/{target}'
-    result_dir = f'./results/{target}'
+    save_dir = f'./cat_saves/{target}'
+    result_dir = f'./cat_results/{target}'
     
     os.makedirs(save_dir, exist_ok=True)
     os.makedirs(result_dir, exist_ok=True)
@@ -66,7 +66,7 @@ def main(args):
     
     
     with open(f'{result_dir}/eval_record.jsonl', 'a+') as f:
-        json.dump(train_result, f)
+        json.dump(train_result.metrics, f)
     with open(f'{result_dir}/test_record.jsonl', 'a+') as f:
         json.dump(test_result.metrics, f)
     with open(f'{save_dir}/record.json', 'w+') as f:

@@ -133,6 +133,10 @@ dmypy.json
 /runs
 /results
 /saves
+/cat_results
+/cat_saves
+/avg_results
+/avg_saves
 .bash
 .pt
 .pth
